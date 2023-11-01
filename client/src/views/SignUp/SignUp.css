@@ -1,0 +1,20 @@
+.form-card {
+    text-align: center;
+    box-shadow: 0 0 10px 2px;
+    height: 550px;
+    width: fit-content;
+    display: block;
+    margin: 0 auto;
+    padding: 0 100px;
+    padding-top: 20px;
+    margin-top: 70px;
+    border-radius: 10px;
+}
+.signup-btn{
+    align-items: center;
+    height: 50px;
+    width: 150px;
+    border-radius: 10px;
+    font-size: 22px;
+    margin-top: 10px;
+}

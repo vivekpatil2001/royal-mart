@@ -4,8 +4,8 @@ import express from "express";
 import mongoose, { connect } from "mongoose";
 
 import User from "./model/User.js";
-
 import Product from "./model/Product.js";
+import Order from "./model/Order.js";
 
 
 
@@ -60,7 +60,7 @@ app.post('/signup', async (req, res) => {
     }
 
 
-})
+});
 
 //login
 
@@ -75,21 +75,35 @@ app.get('/login', async (req, res) => {
             success: false,
             message: 'login failed plz sign up '
         });
-
-        try {
-            res.json({
-                success: true,
-                datq: user,
-                message: 'succesfully login user'
-            })
-        }
-        catch (err) {
-            res.json({
-                success: false,
-                message: err.message
-            })
-        }
     }
+    try {
+        res.json({
+            success: true,
+            data: user,
+            message: 'succesfully login user'
+        })
+    }
+    catch (err) {
+        res.json({
+            success: false,
+            message: err.message
+        })
+    }
+
+});
+
+//get/users
+
+app.get('/users', async (req, res) => {
+
+
+    const users = await User.find()
+
+    res.json({
+        success: true,
+        data: users,
+        message: 'succesfully fetch all users'
+    })
 })
 
 
@@ -198,12 +212,12 @@ app.put('/product/:_id', async (req, res) => {
         }
     )
 
-    const updated_product = await Product.findOne({_id:_id})
+    const updated_product = await Product.findOne({ _id: _id })
 
     res.json({
-        success:true,
-        data:updated_product,
-        message:'product updated succesfully'
+        success: true,
+        data: updated_product,
+        message: 'product updated succesfully'
     })
 });
 
@@ -219,6 +233,67 @@ app.get('/products/search', async (req, res) => {
         message: 'product searched'
     })
 });
+
+
+//get//orders
+app.get('/orders', async (req, res) => {
+    const orders = await Order.find()
+
+    res.json({
+        success: true,
+        data: orders,
+        message: 'order fetch succesfully'
+    });
+});
+
+//post//order
+app.post('/order', async (req, res) => {
+    const { user,
+        product,
+        shippingAddress,
+        deliveryCharges,
+        quantity }
+        = req.body
+
+    const placeOrder = new Order({
+        user,
+        product,
+        shippingAddress,
+        deliveryCharges,
+        quantity
+    })
+
+    try {
+        const SaveOrder = await placeOrder.save()
+
+        res.json({
+            success: true,
+            data: SaveOrder,
+            message: 'Order Placed'
+        })
+    } catch (e) {
+        res.json({
+            success: false,
+            message: e.message
+        })
+    }
+});
+
+//get//order/:id
+
+app.get('/order/:id', async(req, res) => {
+    const {id} = req.params;
+
+    const order =  await Order.findById(id).populate("user product");
+
+    order.user.password=undefined;
+
+    res.json({
+        success:true,
+        data:order,
+        message:'order fetch successfully'
+    })
+})
 
 
 
