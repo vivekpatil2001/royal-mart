@@ -1,7 +1,7 @@
-.form-card {
+.form-card-login{
     text-align: center;
     box-shadow: 0 0 10px 2px;
-    height: 550px;
+    height: 300px;
     width: fit-content;
     display: block;
     margin: 0 auto;
@@ -10,16 +10,23 @@
     margin-top: 70px;
     border-radius: 10px;
 }
-.signup-btn{
-    align-items: center;
-    height: 50px;
+.login-btn{
+    height: 40px;
+  
     width: 150px;
-    border-radius: 10px;
+    background-color: black;
     font-size: 22px;
-    margin-top: 10px;
+    color: white;
+    border-radius: 10px;
 }
-.login-btn1{
+.login-card{
+    position: relative;
+
+}
+.signup-btn1{
+   
     text-decoration: none;
     font-size: 23px;
     color: black;
+
 }

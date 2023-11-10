@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import "./SignUp.css"
 import axios from "axios";
+import { Link } from 'react-router-dom';
+import Navbar from '../../component/Navbar/Navbar';
 
 
 function SignUp() {
@@ -57,6 +59,7 @@ function SignUp() {
 
   return (
     <div>
+      <Navbar/>
       
       <form className=' form-card'>
       <h1 className='text-center'>SignUp</h1>
@@ -124,7 +127,8 @@ function SignUp() {
           setGender(e.target.value)
         }}
          />
-        <button type='button' className='signup-btn' onClick={signUp} >SignUp</button>
+        <button type='button' className='signup-btn' onClick={signUp} >SignUp</button><br/><br/>
+        <Link to='/login' className='login-btn1' >Login</Link>
       </form>
     </div>
   )
